@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#153f39">
+  <meta name="description" content="Small steps into everyday Greek. A personal A1 learning space for Polina.">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self' https://*.supabase.co; img-src 'self' data:; base-uri 'none'; object-src 'none'; form-action 'self'">
+  <title>Μικρά βήματα · Greek with Polina</title>
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./config.js" defer></script>
+  <script type="module" src="./app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to lesson</a>
+  <header class="top"><a class="brand" href="#learn"><span class="brand-icon" aria-hidden="true">μ</span><span>Μικρά βήματα<small>SMALL STEPS · GREEK A1</small></span></a><nav aria-label="Main"><button id="learn-nav" class="nav active">Learn</button><button id="teacher-nav" class="nav">Teacher</button><button id="account-nav" class="nav">Sign in</button></nav></header>
+  <div id="notice" role="status" aria-live="polite"></div>
+  <main id="main" tabindex="-1"></main>
+  <footer><span>Made for Polina. One small step at a time.</span><button id="privacy" class="text-button">Privacy & saving</button></footer>
+  <dialog id="account-dialog" aria-labelledby="account-title"><button class="close" id="close-dialog" aria-label="Close">×</button><h2 id="account-title">Your learning space</h2><div id="account-body"></div></dialog>
+  <noscript>This lesson needs JavaScript. Enable it in your browser settings.</noscript>
+</body></html>
