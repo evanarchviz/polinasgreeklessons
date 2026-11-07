@@ -1,4 +1,4 @@
-import { questions } from './content.js';
+import { questions } from './content.js?v=2';
 export function grade(questionId, answer) { const q=questions.find(q=>q.id===questionId); return !!q && q.answer === answer; }
 export function progress(events, lessonId) {
   const qs = questions.filter(q=>!lessonId || q.lesson_id===lessonId);

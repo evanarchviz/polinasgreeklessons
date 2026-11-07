@@ -1,6 +1,6 @@
-import {lessons,questions} from './content.js';
-import {grade,progress,mergeEvents,safeText as esc} from './model.js';
-import {Backend} from './backend.js';
+import {lessons,questions} from './content.js?v=2';
+import {grade,progress,mergeEvents,safeText as esc} from './model.js?v=2';
+import {Backend} from './backend.js?v=2';
 const $=s=>document.querySelector(s);
 let backend;
 try { backend=new Backend(window.APP_CONFIG||{}); } catch(e) { $('#notice').textContent=e.message; backend=new Backend({}); }
