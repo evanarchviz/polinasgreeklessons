@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {lessons,questions} from './content.js';import {grade,progress} from './model.js';
+test('eight lessons have valid, unique exercises and buildable model sentences',()=>{assert.equal(lessons.length,8);assert.equal(new Set(questions.map(q=>q.id)).size,questions.length);for(const q of questions){assert.ok(grade(q.id,q.answer));if(q.type==='build')assert.deepEqual([...q.words].sort(),q.answer.split(' ').sort());else assert.ok(q.options.includes(q.answer));}assert.ok(questions.length>=35);});
+test('mastery requires a correct submitted answer and repeated attempts count once',()=>{const q=questions[0],e={question_id:q.id,answer:q.answer,kind:'select'};assert.equal(progress([e]).done,0);assert.equal(progress([{...e,kind:'submit'},{...e,kind:'submit'}]).done,1);});

@@ -31,15 +31,17 @@ export class Backend {
     return this.session.access_token;
   }
   async request(path,options={}) { const token=await this.token(); return this.raw('/rest/v1/'+path,{...options,headers:{...options.headers,Authorization:'Bearer '+token}}); }
-  async profile() { const rows=await this.request('profiles?select=id,display_name,role&id=eq.'+this.session.user.id); if(!rows.length) throw new Error('Your account has not been assigned a learning role. Ask Evan to finish setup.'); return rows[0]; }
+  async profile() { const rows=await this.request('profiles?select=id,display_name,role,progress_generation&id=eq.'+this.session.user.id); if(!rows.length) throw new Error('Your account has not been assigned a learning role. Ask your teacher to finish setup.'); return rows[0]; }
   async send(events) { if(!events.length) return; await this.request('events?on_conflict=id',{method:'POST',headers:{Prefer:'resolution=ignore-duplicates,return=minimal'},body:JSON.stringify(events)}); }
-  async events(userId) {
+  async resetProgress(learnerId) { return this.request('rpc/reset_learner_progress',{method:'POST',body:JSON.stringify({target_learner:learnerId})}); }
+  async events(userId,generation) {
     let all=[];
     for(let offset=0;;offset+=500) {
-      const rows=await this.request('events?select=*&user_id=eq.'+encodeURIComponent(userId)+'&order=created_at.asc,id.asc&limit=500&offset='+offset);
+      const rows=await this.request('events?select=*&user_id=eq.'+encodeURIComponent(userId)+(generation===undefined?'':'&generation=eq.'+generation)+'&order=created_at.asc,id.asc&limit=500&offset='+offset);
       all.push(...rows); if(rows.length<500) return all;
     }
   }
   async learners() { return this.request('profiles?role=eq.learner&select=id,display_name&order=display_name.asc'); }
   async logout() { try { await this.raw('/auth/v1/logout',{method:'POST',headers:{Authorization:'Bearer '+await this.token()}}); } finally {this.saveSession(null);} }
 }
+
